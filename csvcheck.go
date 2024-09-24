@@ -15,13 +15,13 @@ const (
 	MethodSet
 )
 
-// For truncated pretty formatted strings.
+// For marking truncated pretty formatted strings.
 const TruncatedMark = ".."
 
 // For allowing different types to be used in the
 // csv arrays.
 type StringHashable interface {
-	StringHash() string // Returns true iff the two objects are equal.
+	StringHash() string // This is used for equality comparison purposes.
 }
 
 // A basic implementation of the StringHashable interface
@@ -301,7 +301,7 @@ func GetDifferentIndices(arr1, arr2 [][]StringHashable, method int, sortIndices 
 }
 
 // Returns nil iff the array is not empty, has no duplicate columns,
-// and all rows have the same number of columns.
+// and all rows have the same number elements.
 func CheckForProperCsvArray(arr [][]StringHashable) error {
 	if len(arr) == 0 {
 		return fmt.Errorf("empty array")
@@ -495,7 +495,7 @@ func addOneToIntArray(arr []int) []int {
 }
 
 // Returns the common rows between the two arrays based on the
-// given options and the indices of the rows in the results in the
+// given options and the indices of the rows in the results from the
 // original arrays.
 func GetCommonRows(csvArray1, csvArray2 [][]StringHashable, options Options) ([][]StringHashable, [][]StringHashable, []int, []int, error) {
 	err := CheckForProperCsvArray(csvArray1)
@@ -529,7 +529,7 @@ func GetCommonRows(csvArray1, csvArray2 [][]StringHashable, options Options) ([]
 }
 
 // Returns the different rows between the two arrays based on the
-// given options and the indices of the rows in the results in the
+// given options and the indices of the rows in the results from the
 // original arrays.
 func GetDifferentRows(csvArray1, csvArray2 [][]StringHashable, options Options) ([][]StringHashable, [][]StringHashable, []int, []int, error) {
 	err := CheckForProperCsvArray(csvArray1)
@@ -606,7 +606,7 @@ func RearrangeColumns(arr [][]StringHashable, columns []StringHashable) ([][]Str
 
 // Automatically aligns the common columns on the left side. The relative positions of
 // the common columns are the same as that of csvArray1 and uncommon columns are placed at the end
-// with the same relative positions as that of the original arrays.
+// with the same relative positions as that of the original arrays, respectively.
 func AutoAlignCsvArrays(csvArray1, csvArray2 [][]StringHashable) ([][]StringHashable, [][]StringHashable, error) {
 	err := CheckForProperCsvArray(csvArray1)
 	if err != nil {

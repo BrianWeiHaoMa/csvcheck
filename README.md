@@ -34,7 +34,7 @@ arr2 := csvcheck.Get2DArrayFrom2DArray([][]string{
     {"10", "11", "12"},
 })
 
-// Returns the different rows, and their indices in the
+// Returns the different rows and their indices in their
 // original arrays, respectively.
 res1, res2, indices1, indices2, _ := csvcheck.GetCommonRows(
     arr1,
